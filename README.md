@@ -11,8 +11,8 @@ Stylish and modern notifications - small jQuery plugin based on Bootstrap and Fo
 [![Monthly Downloads](https://poser.pugx.org/the-muda-organization/notify-bootstrap/d/monthly)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
 [![Daily Downloads](https://poser.pugx.org/the-muda-organization/notify-bootstrap/d/daily)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
 
-[![CSS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/css/notify.min.css?compression=gzip&label=CSS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/yt-lazyload/3.0.0/css/yt-lazyload.min.css)
-[![JS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/js/notify.min.js?compression=gzip&label=JS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/yt-lazyload/3.0.0/css/yt-lazyload.min.js)
+[![CSS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/css/notify.min.css?compression=gzip&label=CSS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/notify-bootstrap/1.0.0/css/notify.min.css)
+[![JS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/js/notify.min.js?compression=gzip&label=JS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/notify-bootstrap/1.0.0/js/notify.min.js)
 
 [![License Code](https://poser.pugx.org/the-muda-organization/notify-bootstrap/license)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
 
@@ -123,7 +123,9 @@ set in CSS at Line 13 & 14. Use ``top:0`` or ``bottom:0`` AND ``left:0`` or ``ri
 
 
 #### Type:
-You can add as many types as you need and each type can have custom style. Type is required. If you leave it empty no icon will be displayed but you will see a placeholder from Font Awesome indicating incorrect icon.
+You can add as many types as you need and each type can have custom style.
+
+Type is required. If you leave it empty no icon will be displayed but you will see a placeholder from Font Awesome indicating incorrect icon.
 
 Notify has a few types added as default in several categories:
 
@@ -185,7 +187,7 @@ In Notify Line 7 just add more event objects and call them with ``notify();`` fu
 CSS class                                   | Explanation
 ------------------------------------------- | -------------------------------------------
 ``.toast-container``                        | main container for stacking toasts. Set position here.
-``.toast``                                  | toast - ovverride from bootstrap
+``.toast``                                  | toast - override from bootstrap
 ``.toast[data-type]``                       | toast - style for notify not affecting bootstrap toast
 ``.toast[data-type] .toast-content``        | toast content
 ``.toast[data-type] .toast-icon svg``       | toast svg icon

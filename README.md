@@ -17,7 +17,7 @@ Stylish and modern notifications - small jQuery plugin based on Bootstrap and Fo
 [![License Code](https://poser.pugx.org/the-muda-organization/notify-bootstrap/license)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
 
 
-## [View DEMO](https://raw.githack.com/the-muda-organization/notify-bootstrap/master/DEMO.html)
+## [View DEMO](https://rawcdn.githack.com/the-muda-organization/notify-bootstrap/f50ebe8ffebfefcdea13c7615d8f1294df68f528/DEMO.html)
 <img src="https://github.com/the-muda-organization/notify-bootstrap/blob/master/PREVIEW.jpg?raw=true" alt="" style="width:100%;display:block;">
 
 

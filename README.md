@@ -11,8 +11,8 @@ Stylish and modern notifications - small jQuery plugin based on Bootstrap and Fo
 [![Monthly Downloads](https://poser.pugx.org/the-muda-organization/notify-bootstrap/d/monthly)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
 [![Daily Downloads](https://poser.pugx.org/the-muda-organization/notify-bootstrap/d/daily)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
 
-[![CSS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/css/notify.css?compression=gzip&label=CSS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/blob/master/notify-bootstrap/1.0.0/css/notify.min.css)
-[![JS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/js/notify.js?compression=gzip&label=JS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/blob/master/notify-bootstrap/1.0.0/js/notify.min.js)
+[![CSS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/css/notify.min.css?compression=gzip&label=CSS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/blob/master/notify-bootstrap/1.0.0/css/notify.min.css)
+[![JS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/js/notify.min.js?compression=gzip&label=JS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/blob/master/notify-bootstrap/1.0.0/js/notify.min.js)
 
 [![License Code](https://poser.pugx.org/the-muda-organization/notify-bootstrap/license)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
 
@@ -42,7 +42,7 @@ Stylish and modern notifications - small jQuery plugin based on Bootstrap and Fo
 ********************************************************************************
 ## Quick Start
 
-Several options are availab
+Several options are available:
 - [Download the latest release.](https://github.com/the-muda-organization/notify-bootstrap/archive/master.zip)
 - Clone the repo: `git clone https://github.com/the-muda-organization/notify-bootstrap.git`
 - Install with [Composer](https://getcomposer.org/): `composer require the-muda-organization/notify-bootstrap`

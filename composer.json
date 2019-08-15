@@ -1,0 +1,22 @@
+{
+    "name": "the-muda-organization/notify-bootstrap",
+    "description": "Stylish and modern notifications - small jQuery plugin based on Bootstrap and Font Awesome",
+    "keywords": [
+        "bootstrap",
+        "toast",
+        "toast-notifications",
+        "notifications",
+        "notify",
+        "jquery",
+        "css",
+        "muda"
+    ],
+    "readme": "/README.md",
+    "authors": [
+        {
+            "name": "Jakub Muda",
+            "email": "info@muda.pl"
+        }
+    ],
+    "license": "MIT"
+}

@@ -1,23 +1,25 @@
 # Notify Bootstrap
 Stylish and modern notifications - small jQuery plugin based on Bootstrap and Font Awesome
 
+New version based on Bootstrap 5 coming soon!
 
 ********************************************************************************
 ## Status
-[![Latest Stable Version](https://poser.pugx.org/the-muda-organization/notify-bootstrap/version)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
-[![Latest Unstable Version](https://poser.pugx.org/the-muda-organization/notify-bootstrap/v/unstable)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
-
-[![Total Downloads](https://poser.pugx.org/the-muda-organization/notify-bootstrap/downloads)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
-[![Monthly Downloads](https://poser.pugx.org/the-muda-organization/notify-bootstrap/d/monthly)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
-[![Daily Downloads](https://poser.pugx.org/the-muda-organization/notify-bootstrap/d/daily)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
-
-[![CSS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/css/notify.min.css?compression=gzip&label=CSS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/blob/master/notify-bootstrap/1.0.0/css/notify.min.css)
-[![JS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/notify-bootstrap/1.0.0/js/notify.min.js?compression=gzip&label=JS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/blob/master/notify-bootstrap/1.0.0/js/notify.min.js)
-
-[![License Code](https://poser.pugx.org/the-muda-organization/notify-bootstrap/license)](https://packagist.org/packages/the-muda-organization/notify-bootstrap)
+[![GitHub Version](https://img.shields.io/github/release/the-muda-organization/notify-bootstrap.svg?style=for-the-badge)](https://github.com/the-muda-organization/notify-bootstrap)
+[![License](https://img.shields.io/github/license/the-muda-organization/notify-bootstrap.svg?style=for-the-badge)](https://github.com/the-muda-organization/notify-bootstrap)
 
 
+[![Github Star](https://img.shields.io/github/stars/the-muda-organization/notify-bootstrap.svg?style=for-the-badge)](https://github.com/the-muda-organization/notify-bootstrap)
+[![Github Fork](https://img.shields.io/github/forks/the-muda-organization/notify-bootstrap.svg?style=for-the-badge)](https://github.com/the-muda-organization/notify-bootstrap)
+
+[![CSS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/dist/css/notify.min.css?compression=gzip&label=CSS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/blob/master/dist/css/notify.min.css)
+[![JS gzip size](https://img.badgesize.io/the-muda-organization/notify-bootstrap/master/dist/js/notify.min.js?compression=gzip&label=JS+gzip+size)](https://github.com/the-muda-organization/notify-bootstrap/blob/master/dist/js/notify.min.js)
+
+
+********************************************************************************
 ## [View DEMO](https://rawcdn.githack.com/the-muda-organization/notify-bootstrap/f50ebe8ffebfefcdea13c7615d8f1294df68f528/DEMO.html)
+********************************************************************************
+
 <img src="https://github.com/the-muda-organization/notify-bootstrap/blob/master/PREVIEW.jpg?raw=true" alt="" style="width:100%;display:block;">
 
 
@@ -55,7 +57,7 @@ There are several dependencies. See below for [Installation Guide](#installation
 ```
 notify-bootstrap/
  │
- └─ 1.x.x/
+ └─ dist/
     │
     ├── css/
     │   ├── notify.css
@@ -112,7 +114,7 @@ myElement.addEventListener('click',function(){
 
 Notify has a style independend from Bootstrap toast. You can use notify and bootstrap toast component at the same time.
 
-Notify javascript rely 100% on Bootstrap. [Check out bootstrap toast component](https://getbootstrap.com/docs/4.3/components/toasts/#javascript-behavior)
+Notify javascript rely 100% on Bootstrap. [Check out bootstrap toast component](https://getbootstrap.com/docs/4.5/components/toasts/#javascript-behavior)
 
 
 ********************************************************************************

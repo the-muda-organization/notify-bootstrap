@@ -1,3 +1,5 @@
+:exclamation::exclamation::exclamation: **Bootstrap 5 update coming soon!**:exclamation::exclamation::exclamation:
+********************************************************************************
 # Notify Bootstrap
 Stylish and modern notifications - small jQuery plugin based on Bootstrap and Font Awesome
 

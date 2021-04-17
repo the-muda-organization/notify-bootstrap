@@ -3,13 +3,13 @@
     "description": "Stylish and modern notifications - small jQuery plugin based on Bootstrap and Font Awesome",
     "keywords": [
         "bootstrap",
-        "toast",
-        "toast-notifications",
+        "css",
+        "javascript",
+        "javascript-library",
         "notifications",
         "notify",
-        "jquery",
-        "css",
-        "muda"
+        "toast",
+        "toast-notifications"
     ],
     "readme": "/README.md",
     "authors": [

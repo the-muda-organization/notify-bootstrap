@@ -1,0 +1,582 @@
+<!--
+ * notify-bootstrap 
+ * v2.0.0
+ * https://github.com/the-muda-organization/notify-bootstrap
+ * MIT License
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DEMO Notify for Bootstrap-5 | The MUDA Organization</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+/****************************************
+                DEMO
+****************************************/
+hr{margin-top:3rem;margin-bottom:3rem;opacity:1}
+.text-justify{text-align:justify}
+body{min-height:100vh;background:url(https://i.imgur.com/99r3MBm.jpg) center/cover no-repeat fixed}
+main{padding-top:3rem;padding-bottom:3rem;background:rgba(0,0,0,.5);text-align:center;color:var(--bs-warning)}
+main .section-buttons .btn{width:100%;font-weight:700}
+
+
+
+
+
+/****************************************
+                NOTIFY
+****************************************/
+
+/* TOAST CONTAINER - for stacking toasts */
+#toast-container{
+    width:100%;
+    max-width:450px;
+    position:fixed;
+    bottom:0;
+    left:0;
+    z-index:1055;
+    padding:1rem;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    user-select:none;
+    pointer-events:none;
+}
+
+/* TOAST CONTAINER CONTENT - NOT LAST CHILD */
+#toast-container > :not(:last-child){
+    margin-bottom:.75rem;
+}
+
+/* TOAST - bootstrap ovverride */
+.toast{
+    width:100%;
+    max-width:none;
+}
+
+/* TOAST NOTIFY - style not affecting bootstrap toast */
+.toast[data-type]{
+    position:relative;
+    padding-left:1rem;
+    background-image:linear-gradient(to bottom right,#4a4a4a,#2b2b2b);
+    color:var(--bs-white);
+    border:0;
+    box-shadow:0 2px 4px rgba(0,0,0,.5);
+}
+
+/* TOAST CLOSE BUTTON */
+.toast[data-type] .btn-close{
+    width:1.25rem;
+    height:1.25rem;
+    position:absolute;
+    top:.4rem;
+    right:.4rem;
+    padding:0;
+    background-color:transparent;
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-80 0 512 512' fill='%23000'%3e%3cpath d='M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z'/%3e%3c/svg%3e");
+    background-size:80%;
+    background-position:50%;
+    background-repeat:no-repeat;
+    border-radius:50%;
+}
+
+/* TOAST CLOSE BUTTON FOCUS */
+.toast[data-type] .btn-close:focus{
+    box-shadow:0 0 0 .25rem rgba(66,70,73,.5);
+}
+
+/* TOAST CONTENT */
+.toast[data-type] .toast-content{
+    display:flex;
+    align-items:center;
+}
+
+/* TOAST ICON */
+.toast[data-type] .toast-icon{
+    /*
+    width:35px;
+    height:35px;
+    background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23fff'%3e%3cpath d='M256.55 8C116.52 8 8 110.34 8 248.57c0 72.3 29.71 134.78 78.07 177.94 8.35 7.51 6.63 11.86 8.05 58.23A19.92 19.92 0 0 0 122 502.31c52.91-23.3 53.59-25.14 62.56-22.7C337.85 521.8 504 423.7 504 248.57 504 110.34 396.59 8 256.55 8zm149.24 185.13l-73 115.57a37.37 37.37 0 0 1-53.91 9.93l-58.08-43.47a15 15 0 0 0-18 0l-78.37 59.44c-10.46 7.93-24.16-4.6-17.11-15.67l73-115.57a37.36 37.36 0 0 1 53.91-9.93l58.06 43.46a15 15 0 0 0 18 0l78.41-59.38c10.44-7.98 24.14 4.54 17.09 15.62z'/%3e%3c/svg%3e");
+    background-size:contain;
+    background-position:50%;
+    background-repeat:no-repeat;
+    */
+}
+
+/* TOAST ICON SVG */
+.toast[data-type] .toast-icon svg{
+    width:35px;
+    height:35px;
+    display:block;
+    /*display:none;*/
+}
+
+/* TOAST BODY - container for title and message */
+.toast[data-type] .toast-body{
+    flex:2;
+    padding-left:1rem;
+    text-align:justify;
+}
+
+/* TOAST TITLE */
+.toast[data-type] .toast-body .toast-title{
+    padding-right:1rem;
+    font-weight:700;
+}
+
+/* TOAST MESSAGE */
+.toast[data-type] .toast-body .toast-message{
+    
+}
+
+
+
+/* GENERAL COLORS */
+.toast[data-type="info"]   {background-image:linear-gradient(to bottom right,#007bff,#1d93d2)}
+.toast[data-type="warning"]{background-image:linear-gradient(to bottom right,#ff9500,#fc0);color:var(--bs-dark)}
+.toast[data-type="error"]  {background-image:linear-gradient(to bottom right,#ff2a68,#ff5e3a)}
+.toast[data-type="success"]{background-image:linear-gradient(to bottom right,#28a745,#84b42d)}
+.toast[data-type="other"]  {background-image:linear-gradient(to bottom right,#4a4a4a,#2b2b2b)}
+
+
+
+/* BRANDS */
+.toast[data-type="amazon"]            {background-image:linear-gradient(#000 90%,#ff9900)}
+.toast[data-type="dropbox"]           {background-image:linear-gradient(to bottom right,#0061ff,#4d90ff)}
+.toast[data-type="facebook"]          {background-image:linear-gradient(to bottom right,#1778f2,#5fa2f6)}
+.toast[data-type="facebook-messenger"]{background-image:linear-gradient(45deg,#0a7cff 0%,#a10eeb 60%,#ff5297 93%,#ff6c5c 100%)}
+.toast[data-type="flickr"]            {background-image:linear-gradient(90deg,#0063dc,#ff0084)}
+.toast[data-type="github"]            {background-image:linear-gradient(to bottom right,#333,#595959)}
+.toast[data-type="instagram"]         {background-image:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+.toast[data-type="linkedin"]          {background-image:linear-gradient(to bottom right,#0077b5,#03a9ff)}
+.toast[data-type="paypal"]            {background-image:linear-gradient(to bottom right,#003087,#009cde)}
+.toast[data-type="pinterest"]         {background-image:linear-gradient(to bottom right,#e60023,#9a0017)}
+.toast[data-type="skype"]             {background-image:linear-gradient(to bottom right,#00aff0,#0077a4)}
+.toast[data-type="spotify"]           {background-image:linear-gradient(to bottom right,#1ed760,#1db954);color:#191414}
+.toast[data-type="stack-overflow"]    {background-image:linear-gradient(to bottom right,#f48024,#c25b0a);color:#2d2d2d}
+.toast[data-type="twitter"]           {background-image:linear-gradient(to bottom right,#1da1f2,#0b76b8)}
+.toast[data-type="vimeo"]             {background-image:linear-gradient(to bottom right,#1ab7ea,#0f83a8)}
+.toast[data-type="whatsapp"]          {background-image:linear-gradient(to bottom right,#60fc7d,#198e2e);color:var(--bs-dark)}
+.toast[data-type="wikipedia"]         {background-image:linear-gradient(to bottom right,#636466,#000)}
+.toast[data-type="youtube"]           {background-image:linear-gradient(to bottom right,#f00,#b30000)}
+
+
+
+/*COLOR CONTRAST IMPROVEMENT*/
+.toast[data-type="warning"] .btn-close,
+.toast[data-type="spotify"] .btn-close,
+.toast[data-type="whatsapp"] .btn-close{
+    filter:none;
+}
+
+
+</style>
+    
+</head>
+<body class="">
+    
+    
+    
+    <main class="container-fluid">
+        
+        
+        <!--**************************************************
+                            CODE EXAMPLES
+            **************************************************-->
+        <section id="section-docs" class="row g-4">
+            
+            <!--TITLE-->
+            <div class="col-12 mb-5">
+                <h1>Notify for Bootstrap 5</h1>
+                <div>Show notifications anywhere in your app</div>
+            </div>
+            
+            <!--BASIC EXAMPLE-->
+            <div class="col-lg-3">
+                <div class="mb-2">Show a notification using:</div>
+                <div class="alert alert-primary">
+                    <code>notify(type, title, message);</code>
+                </div>
+            </div>
+            
+            <!--EXAMPLE - JAVASCRIPT-->
+            <div class="col-lg-6">
+                <div class="mb-2">Example with JavaScript:</div>
+                <div class="alert alert-primary">
+                    <code>
+                        <span class="d-block">myElement.addEventListener('click',function(){</span>
+                        <span class="d-block ms-4">notify('shield-check','Title of the message!','This is a sample message! Lorem ipsum!');</span>
+                        <span class="d-block">});</span>
+                    </code>
+                </div>
+                <button id="btn-demo" class="btn btn-sm w-100 btn-primary">Click Me!</button>
+            </div>
+        
+            <!--BOOTSTRAP TOAST-->
+            <div class="col-lg-3 text-dark text-left">
+                <div class="mb-2 text-warning">Notify is independent of default Bootstrap toast:</div>
+                
+                <div id="toast-demo" class="toast" data-bs-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">
+                            <svg class="svg-inline--fa fa-facebook-square fa-w-14 fa-lg me-2" style="width:20px;height:20px;color:#1778f2" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"/></svg>
+                            <span>Facebook</span>
+                        </strong>
+                        <small>11 mins ago</small>
+                        <button class="ms-2 btn-close" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua eu fugiat nulla pariatur laborum ratione.</div>
+                </div>
+                
+            </div>
+        </section>
+        
+        
+        <hr>
+    
+        
+        <!--**************************************************
+                            GENERAL
+        **************************************************-->
+        <section class="section-buttons row row-cols-6 g-4">
+            <div class="col-12 mb-4">
+                <h2>GENERAL:</h2>
+            </div>
+            <div class="col"><button class="btn btn-primary"   data-type="info"   >info</button></div>
+            <div class="col"><button class="btn btn-warning"   data-type="warning">warning</button></div>
+            <div class="col"><button class="btn btn-success"   data-type="success">success</button></div>
+            <div class="col"><button class="btn btn-danger"    data-type="error"  >error</button></div>
+            <div class="col"><button class="btn btn-secondary" data-type="other"  >other</button></div>
+        </section>
+        
+        
+        <hr>
+        
+        
+        <!--**************************************************
+                            BRANDS
+        **************************************************-->
+        <section class="section-buttons row row-cols-6 g-4">
+            <div class="col-12 mb-4">
+                <h3>BRANDS:</h3>
+            </div>
+            <div class="col"><button class="btn btn-outline-light" data-type="amazon"            ><i class="fab fa-fw fa-2x fa-amazon"></i></button>amazon</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="dropbox"           ><i class="fab fa-fw fa-2x fa-dropbox"></i></button>dropbox</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="facebook"          ><i class="fab fa-fw fa-2x fa-facebook-square"></i></button>facebook</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="facebook-messenger"><i class="fab fa-fw fa-2x fa-facebook-messenger"></i></button>facebook-messenger</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="flickr"            ><i class="fab fa-fw fa-2x fa-flickr"></i></button>flickr</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="github"            ><i class="fab fa-fw fa-2x fa-github"></i></button>github</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="instagram"         ><i class="fab fa-fw fa-2x fa-instagram"></i></button>instagram</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="linkedin"          ><i class="fab fa-fw fa-2x fa-linkedin"></i></button>linkedin</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="paypal"            ><i class="fab fa-fw fa-2x fa-paypal"></i></button>paypal</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="pinterest"         ><i class="fab fa-fw fa-2x fa-pinterest"></i></button>pinterest</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="skype"             ><i class="fab fa-fw fa-2x fa-skype"></i></button>skype</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="spotify"           ><i class="fab fa-fw fa-2x fa-spotify"></i></button>spotify</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="stack-overflow"    ><i class="fab fa-fw fa-2x fa-stack-overflow"></i></button>stack-overflow</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="twitter"           ><i class="fab fa-fw fa-2x fa-twitter"></i></button>twitter</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="vimeo"             ><i class="fab fa-fw fa-2x fa-vimeo"></i></button>vimeo</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="wikipedia"         ><i class="fab fa-fw fa-2x fa-wikipedia-w"></i></button>wikipedia</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="whatsapp"          ><i class="fab fa-fw fa-2x fa-whatsapp"></i></button>whatsapp</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="youtube"           ><i class="fab fa-fw fa-2x fa-youtube"></i></button>youtube</div>
+        </section>
+        
+        
+        <hr>
+        
+        
+        <!--**************************************************
+                            CUSTOM
+        **************************************************-->
+        <section class="section-buttons row row-cols-6 g-4">
+            <div class="col-12 mb-4">
+                <h3>CUSTOM:</h3>
+                <small>(independent of Font Awesome)</small>
+            </div>
+            <div class="col"><button class="btn btn-outline-light" data-type="spinner"      ><i class="fas fa-fw fa-2x fa-spinner fa-spin"></i></button>spinner</div>
+            <div class="col"><button class="btn btn-outline-light" data-type="spinner-third"><i class="fas fa-fw fa-2x fa-spinner-third fa-spin"></i></button>spinner-third</div>
+        </section>
+        
+        
+        <hr>
+        
+        
+        <!--**************************************************
+                            FONT AWESOME
+        **************************************************-->
+        <section class="section-buttons row row-cols-auto g-4">
+            <div class="col-12 mb-4">
+                <h3>FONT AWESOME:</h3>
+                <small>(All Font Awesome icons can be used. These few icons are for demo purpose)</small>
+            </div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="at"                ><i class="fas fa-fw fa-2x fa-at"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="badge-check"       ><i class="fas fa-fw fa-2x fa-badge-check"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="ban"               ><i class="fas fa-fw fa-2x fa-ban"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="bell"              ><i class="fas fa-fw fa-2x fa-bell"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="cloud-download-alt"><i class="fas fa-fw fa-2x fa-cloud-download-alt"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="cloud-upload-alt"  ><i class="fas fa-fw fa-2x fa-cloud-upload-alt"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="do-not-enter"      ><i class="fas fa-fw fa-2x fa-do-not-enter"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="download"          ><i class="fas fa-fw fa-2x fa-download"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="envelope"          ><i class="fas fa-fw fa-2x fa-envelope"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="gem"               ><i class="fas fa-fw fa-2x fa-gem"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="gift"              ><i class="fas fa-fw fa-2x fa-gift"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="heart"             ><i class="fas fa-fw fa-2x fa-heart"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="inbox-in"          ><i class="fas fa-fw fa-2x fa-inbox-in"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="inbox-out"         ><i class="fas fa-fw fa-2x fa-inbox-out"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="lightbulb-on"      ><i class="fas fa-fw fa-2x fa-lightbulb-on"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="lock-alt"          ><i class="fas fa-fw fa-2x fa-lock-alt"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="lock-open-alt"     ><i class="fas fa-fw fa-2x fa-lock-open-alt"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="map-marker-alt"    ><i class="fas fa-fw fa-2x fa-map-marker-alt"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="medal"             ><i class="fas fa-fw fa-2x fa-medal"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="music"             ><i class="fas fa-fw fa-2x fa-music"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="podcast"           ><i class="fas fa-fw fa-2x fa-podcast"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="power-off"         ><i class="fas fa-fw fa-2x fa-power-off"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="quote-left"        ><i class="fas fa-fw fa-2x fa-quote-left"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="save"              ><i class="fas fa-fw fa-2x fa-save"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="shield-check"      ><i class="fas fa-fw fa-2x fa-shield-check"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="spinner"           ><i class="fas fa-fw fa-2x fa-spinner fa-spin"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="star"              ><i class="fas fa-fw fa-2x fa-star"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="thumbs-down"       ><i class="fas fa-fw fa-2x fa-thumbs-down"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="thumbs-up"         ><i class="fas fa-fw fa-2x fa-thumbs-up"></i></button></div>
+            <div class="col"><button class="btn btn-outline-warning" data-type="trophy-alt"        ><i class="fas fa-fw fa-2x fa-trophy-alt"></i></button></div>
+        </section>
+        
+       
+    
+    </main>
+
+
+    
+    <!--**************************************************
+                        TOAST CONTAINER
+        **************************************************-->
+    <section id="toast-container" aria-live="polite" aria-atomic="true"></section>
+
+
+
+    <!--**************************************************
+                        TOAST TEMPLATE
+        **************************************************-->
+    <template id="toast-template">
+        <article class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-content">
+                <div class="toast-icon"></div>
+                <div class="toast-body">
+                    <div class="toast-title"></div>
+                    <div class="toast-message"></div>
+                </div>
+            </div>
+            <button class="btn-close btn-close-white" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
+        </article>
+    </template>
+    
+    
+    
+    <!--**************************************************
+                            SCRIPTS
+        **************************************************-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
+    <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    
+
+<script>
+(function(){
+    
+    /********************************************************************
+                            MAIN VARIABLES
+    *********************************************************************/
+    var id_toast_container  = document.getElementById('toast-container'),
+        
+        toast_template      = document.createElement('article'),
+        toast_content       = document.createElement('div'),
+        toast_icon          = document.createElement('div'),
+        toast_body          = document.createElement('div'),
+        toast_title         = document.createElement('div'),
+        toast_message       = document.createElement('div'),
+        toast_btnclose      = document.createElement('button');
+    
+    
+    
+    /********************************************************************
+                            CREATE TOAST CONTAINER
+    *********************************************************************/
+    if(id_toast_container === null){
+        
+        id_toast_container    = document.createElement('section');
+        id_toast_container.id = 'toast-container';
+        
+        id_toast_container.setAttribute('aria-live','polite');
+        id_toast_container.setAttribute('aria-atomic','true');
+        
+        document.body.append(id_toast_container);
+    }
+    
+    
+    
+    /********************************************************************
+                            CREATE TEMPLATE
+    *********************************************************************/
+    
+    /*toast item*/
+    toast_template.classList.add('toast');
+    
+    toast_template.setAttribute('role','alert');
+    toast_template.setAttribute('aria-live','assertive');
+    toast_template.setAttribute('aria-atomic','true');
+    
+    /*toast content*/
+    toast_content.classList.add('toast-content');
+    
+    /*toast icon*/
+    toast_icon.classList.add('toast-icon');
+    
+    /*toast body*/
+    toast_body.classList.add('toast-body');
+    
+    /*toast title*/
+    toast_title.classList.add('toast-title');
+    
+    /*toast message*/
+    toast_message.classList.add('toast-message');
+    
+    /*toast button close*/
+    toast_btnclose.classList.add('btn-close');
+    toast_btnclose.type = 'button';
+    toast_btnclose.setAttribute('data-bs-dismiss','toast');
+    toast_btnclose.setAttribute('aria-label','Close');
+    
+    /*Append*/
+    toast_body.append(toast_title,toast_message);
+    toast_content.append(toast_icon,toast_body);
+    toast_template.append(toast_content,toast_btnclose);
+    
+    
+    
+    /********************************************************************
+                            CREATE NOTIFICATION
+    *********************************************************************/
+    function notify(options){
+        
+        /*VARIABLES*/
+        var toast,
+            toast_item = document.getElementById('toast-template').content.querySelector('.toast').cloneNode(true),
+            data_type           = options.type,
+            data_icon           = options.icon,
+            data_title          = options.title,
+            data_message        = options.message,
+            /*settings_animation  = true,*/
+            settings_autohide   = true,
+            settings_delay      = 7000;
+            
+        
+        /*ICON*/
+        switch(data_type){
+            
+            /*GENERAL*/
+            case 'info':                data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false"><path fill="#fff" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zm-176 86c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg>';break;
+            case 'warning':             data_icon = '<svg viewBox="0 0 576 512" role="img" aria-hidden="true" focusable="false"><path fill="#212529" d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></svg>';break;
+            case 'success':             data_icon = '<svg viewBox="0 0 512 512" role="img" aria-hidden="true" focusable="false"><path fill="#fff" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></svg>';break;
+            case 'error':               data_icon = '<svg viewBox="0 0 512 512" role="img" aria-hidden="true" focusable="false"><path fill="#fff" d="M497.9 150.5c9 9 14.1 21.2 14.1 33.9v143.1c0 12.7-5.1 24.9-14.1 33.9L361.5 497.9c-9 9-21.2 14.1-33.9 14.1H184.5c-12.7 0-24.9-5.1-33.9-14.1L14.1 361.5c-9-9-14.1-21.2-14.1-33.9V184.5c0-12.7 5.1-24.9 14.1-33.9L150.5 14.1c9-9 21.2-14.1 33.9-14.1h143.1c12.7 0 24.9 5.1 33.9 14.1l136.5 136.4zM377.6 338c4.7-4.7 4.7-12.3 0-17l-65-65 65.1-65.1c4.7-4.7 4.7-12.3 0-17L338 134.4c-4.7-4.7-12.3-4.7-17 0l-65 65-65.1-65.1c-4.7-4.7-12.3-4.7-17 0L134.4 174c-4.7 4.7-4.7 12.3 0 17l65.1 65.1-65.1 65.1c-4.7 4.7-4.7 12.3 0 17l39.6 39.6c4.7 4.7 12.3 4.7 17 0l65.1-65.1 65.1 65.1c4.7 4.7 12.3 4.7 17 0l39.4-39.8z"/></svg>';break;
+            case 'other':               data_icon = '<svg class="fa-spin" viewBox="0 0 512 512" role="img" aria-hidden="true" focusable="false"><path fill="#fff" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>';break;
+            
+            /*BRANDS*/
+            case 'amazon':              data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="amazon"><path fill="#fff" d="M257.2 162.7c-48.7 1.8-169.5 15.5-169.5 117.5 0 109.5 138.3 114 183.5 43.2 6.5 10.2 35.4 37.5 45.3 46.8l56.8-56S341 288.9 341 261.4V114.3C341 89 316.5 32 228.7 32 140.7 32 94 87 94 136.3l73.5 6.8c16.3-49.5 54.2-49.5 54.2-49.5 40.7-.1 35.5 29.8 35.5 69.1zm0 86.8c0 80-84.2 68-84.2 17.2 0-47.2 50.5-56.7 84.2-57.8v40.6zm136 163.5c-7.7 10-70 67-174.5 67S34.2 408.5 9.7 379c-6.8-7.7 1-11.3 5.5-8.3C88.5 415.2 203 488.5 387.7 401c7.5-3.7 13.3 2 5.5 12zm39.8 2.2c-6.5 15.8-16 26.8-21.2 31-5.5 4.5-9.5 2.7-6.5-3.8s19.3-46.5 12.7-55c-6.5-8.3-37-4.3-48-3.2-10.8 1-13 2-14-.3-2.3-5.7 21.7-15.5 37.5-17.5 15.7-1.8 41-.8 46 5.7 3.7 5.1 0 27.1-6.5 43.1z"/></svg>';break;
+            case 'dropbox':             data_icon = '<svg viewBox="0 0 528 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="dropbox"><path fill="#fff" d="M264.4 116.3l-132 84.3 132 84.3-132 84.3L0 284.1l132.3-84.3L0 116.3 132.3 32l132.1 84.3zM131.6 395.7l132-84.3 132 84.3-132 84.3-132-84.3zm132.8-111.6l132-84.3-132-83.6L395.7 32 528 116.3l-132.3 84.3L528 284.8l-132.3 84.3-131.3-85z"/></svg>';break;
+            case 'facebook':            data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square"><path fill="#fff" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"/></svg>';break;
+            case 'facebook-messenger':  data_icon = '<svg viewBox="0 0 512 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-messenger"><path fill="#fff" d="M256.55 8C116.52 8 8 110.34 8 248.57c0 72.3 29.71 134.78 78.07 177.94 8.35 7.51 6.63 11.86 8.05 58.23A19.92 19.92 0 0 0 122 502.31c52.91-23.3 53.59-25.14 62.56-22.7C337.85 521.8 504 423.7 504 248.57 504 110.34 396.59 8 256.55 8zm149.24 185.13l-73 115.57a37.37 37.37 0 0 1-53.91 9.93l-58.08-43.47a15 15 0 0 0-18 0l-78.37 59.44c-10.46 7.93-24.16-4.6-17.11-15.67l73-115.57a37.36 37.36 0 0 1 53.91-9.93l58.06 43.46a15 15 0 0 0 18 0l78.41-59.38c10.44-7.98 24.14 4.54 17.09 15.62z"/></svg>';break;
+            case 'flickr':              data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="flickr"><path fill="#fff" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM144.5 319c-35.1 0-63.5-28.4-63.5-63.5s28.4-63.5 63.5-63.5 63.5 28.4 63.5 63.5-28.4 63.5-63.5 63.5zm159 0c-35.1 0-63.5-28.4-63.5-63.5s28.4-63.5 63.5-63.5 63.5 28.4 63.5 63.5-28.4 63.5-63.5 63.5z"/></svg>';break;
+            case 'github':              data_icon = '<svg viewBox="0 0 496 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github"><path fill="#fff" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>';break;
+            case 'instagram':           data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="instagram"><path fill="#fff" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>';break;
+            case 'linkedin':            data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin"><path fill="#fff" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>';break;
+            case 'paypal':              data_icon = '<svg viewBox="0 0 384 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="paypal"><path fill="#fff" d="M111.4 295.9c-3.5 19.2-17.4 108.7-21.5 134-.3 1.8-1 2.5-3 2.5H12.3c-7.6 0-13.1-6.6-12.1-13.9L58.8 46.6c1.5-9.6 10.1-16.9 20-16.9 152.3 0 165.1-3.7 204 11.4 60.1 23.3 65.6 79.5 44 140.3-21.5 62.6-72.5 89.5-140.1 90.3-43.4.7-69.5-7-75.3 24.2zM357.1 152c-1.8-1.3-2.5-1.8-3 1.3-2 11.4-5.1 22.5-8.8 33.6-39.9 113.8-150.5 103.9-204.5 103.9-6.1 0-10.1 3.3-10.9 9.4-22.6 140.4-27.1 169.7-27.1 169.7-1 7.1 3.5 12.9 10.6 12.9h63.5c8.6 0 15.7-6.3 17.4-14.9.7-5.4-1.1 6.1 14.4-91.3 4.6-22 14.3-19.7 29.3-19.7 71 0 126.4-28.8 142.9-112.3 6.5-34.8 4.6-71.4-23.8-92.6z"/></svg>';break;
+            case 'pinterest':           data_icon = '<svg viewBox="0 0 496 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="pinterest"><path fill="#fff" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>';break;
+            case 'skype':               data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="skype"><path fill="#fff" d="M424.7 299.8c2.9-14 4.7-28.9 4.7-43.8 0-113.5-91.9-205.3-205.3-205.3-14.9 0-29.7 1.7-43.8 4.7C161.3 40.7 137.7 32 112 32 50.2 32 0 82.2 0 144c0 25.7 8.7 49.3 23.3 68.2-2.9 14-4.7 28.9-4.7 43.8 0 113.5 91.9 205.3 205.3 205.3 14.9 0 29.7-1.7 43.8-4.7 19 14.6 42.6 23.3 68.2 23.3 61.8 0 112-50.2 112-112 .1-25.6-8.6-49.2-23.2-68.1zm-194.6 91.5c-65.6 0-120.5-29.2-120.5-65 0-16 9-30.6 29.5-30.6 31.2 0 34.1 44.9 88.1 44.9 25.7 0 42.3-11.4 42.3-26.3 0-18.7-16-21.6-42-28-62.5-15.4-117.8-22-117.8-87.2 0-59.2 58.6-81.1 109.1-81.1 55.1 0 110.8 21.9 110.8 55.4 0 16.9-11.4 31.8-30.3 31.8-28.3 0-29.2-33.5-75-33.5-25.7 0-42 7-42 22.5 0 19.8 20.8 21.8 69.1 33 41.4 9.3 90.7 26.8 90.7 77.6 0 59.1-57.1 86.5-112 86.5z"/></svg>';break;
+            case 'spotify':             data_icon = '<svg viewBox="0 0 496 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="spotify"><path fill="#fff" d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 26.2 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"/></svg>';break;
+            case 'stack-overflow':      data_icon = '<svg viewBox="0 0 384 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="stack-overflow"><path fill="#2d2d2d" d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"/></svg>';break;
+            case 'twitter':             data_icon = '<svg viewBox="0 0 512 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter"><path fill="#fff" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>';break;
+            case 'vimeo':               data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="vimeo"><path fill="#fff" d="M403.2 32H44.8C20.1 32 0 52.1 0 76.8v358.4C0 459.9 20.1 480 44.8 480h358.4c24.7 0 44.8-20.1 44.8-44.8V76.8c0-24.7-20.1-44.8-44.8-44.8zM377 180.8c-1.4 31.5-23.4 74.7-66 129.4-44 57.2-81.3 85.8-111.7 85.8-18.9 0-34.8-17.4-47.9-52.3-25.5-93.3-36.4-148-57.4-148-2.4 0-10.9 5.1-25.4 15.2l-15.2-19.6c37.3-32.8 72.9-69.2 95.2-71.2 25.2-2.4 40.7 14.8 46.5 51.7 20.7 131.2 29.9 151 67.6 91.6 13.5-21.4 20.8-37.7 21.8-48.9 3.5-33.2-25.9-30.9-45.8-22.4 15.9-52.1 46.3-77.4 91.2-76 33.3.9 49 22.5 47.1 64.7z"/></svg>';break;
+            case 'wikipedia':           data_icon = '<svg viewBox="0 0 640 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="wikipedia-w"><path fill="#fff" d="M640 51.2l-.3 12.2c-28.1.8-45 15.8-55.8 40.3-25 57.8-103.3 240-155.3 358.6H415l-81.9-193.1c-32.5 63.6-68.3 130-99.2 193.1-.3.3-15 0-15-.3C172 352.3 122.8 243.4 75.8 133.4 64.4 106.7 26.4 63.4.2 63.7c0-3.1-.3-10-.3-14.2h161.9v13.9c-19.2 1.1-52.8 13.3-43.3 34.2 21.9 49.7 103.6 240.3 125.6 288.6 15-29.7 57.8-109.2 75.3-142.8-13.9-28.3-58.6-133.9-72.8-160-9.7-17.8-36.1-19.4-55.8-19.7V49.8l142.5.3v13.1c-19.4.6-38.1 7.8-29.4 26.1 18.9 40 30.6 68.1 48.1 104.7 5.6-10.8 34.7-69.4 48.1-100.8 8.9-20.6-3.9-28.6-38.6-29.4.3-3.6 0-10.3.3-13.6 44.4-.3 111.1-.3 123.1-.6v13.6c-22.5.8-45.8 12.8-58.1 31.7l-59.2 122.8c6.4 16.1 63.3 142.8 69.2 156.7L559.2 91.8c-8.6-23.1-36.4-28.1-47.2-28.3V49.6l127.8 1.1.2.5z"/></svg>';break;
+            case 'whatsapp':            data_icon = '<svg viewBox="0 0 448 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="whatsapp"><path fill="#fff" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>';break;
+            case 'youtube':             data_icon = '<svg viewBox="0 0 576 512" role="img" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube"><path fill="#fff" d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>';break;
+
+            /*CUSTOM*/
+            case 'spinner':             data_icon = '<svg class="fa-spin" viewBox="0 0 512 512" role="img" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner"><path fill="#fff" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>';break;
+            case 'spinner-third':       data_icon = '<svg class="fa-spin" viewBox="0 0 512 512" role="img" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner-third"><path fill="currentColor" d="M456.433 371.72l-27.79-16.045c-7.192-4.152-10.052-13.136-6.487-20.636 25.82-54.328 23.566-118.602-6.768-171.03-30.265-52.529-84.802-86.621-144.76-91.424C262.35 71.922 256 64.953 256 56.649V24.56c0-9.31 7.916-16.609 17.204-15.96 81.795 5.717 156.412 51.902 197.611 123.408 41.301 71.385 43.99 159.096 8.042 232.792-4.082 8.369-14.361 11.575-22.424 6.92z"/></svg>';break;
+    
+            /*DEFAULT*/
+            default:                    data_icon = `<i style="width:35px;height:35px" class="fas fa-${data_type}"></i>`;
+        }
+        
+        
+        
+        /*ADD CONTENT*/
+        toast_item.setAttribute('data-type',data_type);
+        toast_item.querySelector('.toast-icon').innerHTML       = data_icon;
+        toast_item.querySelector('.toast-title').textContent    = data_title;
+        toast_item.querySelector('.toast-message').textContent  = data_message;
+        
+        /*APPEND TO CONTAINER*/
+        id_toast_container.append(toast_item);
+        
+        /*SHOW TOAST*/
+        toast = new bootstrap.Toast(toast_item,{
+            /*animation:  settings_animation,*/
+            autohide:   settings_autohide,
+            delay:      settings_delay,
+        });
+        toast.show();
+        
+        /*REMOVE HIDDEN TOAST*/
+        toast_item.addEventListener('hidden.bs.toast',function(){
+            toast.dispose();
+            this.remove();
+        });
+    
+    }
+    
+
+
+
+
+
+    /*show notify*/
+    notify({
+        type:    'facebook',
+        title:   'Title of the message!',
+        message: 'This is a sample message! Lorem ipsum!',
+    });
+    
+
+    /*toast-test show*/
+    new bootstrap.Toast(document.getElementById('toast-demo'),{
+        'autohide': false,
+    }).show();
+    
+    
+    /*btn-demo*/
+    document.getElementById('btn-demo').addEventListener('click',function(){
+        notify({
+            type:    'facebook-messenger',
+            title:   'Title of the message!',
+            message: 'This is a sample message! Lorem ipsum!',
+        });
+    });
+
+
+    /*event listener for all demo buttons*/
+    document.querySelectorAll('.section-buttons .btn').forEach(function(e){
+        e.addEventListener('click',function(){
+            notify({
+                type:    e.dataset.type,
+                title:   'Title of the message!',
+                message: 'This is a sample message! Lorem ipsum!',
+            });
+        });
+    });
+        
+
+})();
+</script>
+    
+</body>
+</html>
